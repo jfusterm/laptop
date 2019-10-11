@@ -159,7 +159,7 @@ bootstrap_ubuntu() {
 
   # pip
   echo -e "\n${CYAN}Installing ${GREEN}Python${NO_COLOR} ${CYAN}packages${NO_COLOR}"
-  sudo pip3 install --user -r pip/requirements.txt
+  pip3 install -r pip/requirements.txt
 
   # go
   echo -e "\n${CYAN}Installing ${GREEN}Go${NO_COLOR}"
