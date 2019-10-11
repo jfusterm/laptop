@@ -1,0 +1,61 @@
+# Variables
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export ZSH=$HOME/.oh-my-zsh
+export PATH=$PATH:/usr/local/go/bin
+export TERM="xterm-256color"
+
+# zsh theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# zsh plugins
+plugins=(
+  git
+  kubectl
+  helm
+  terraform
+  tmux
+  ansible
+  aws
+  python
+  ubuntu
+  go
+  salt
+  vault
+  pip
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
+  vagrant
+  vscode
+  ssh-agent
+)
+
+# Alias
+alias k="kubectl"
+alias kgp="kubectl get pods"
+alias kaf="kubectl apply -f"
+alias kdf="kubectl delete -f"
+alias g="git"
+
+# Load Hub
+eval "$(hub alias -s)"
+
+# Functions
+pip3upgrade() {
+  for PACKAGE in $(pip3 list | grep -e '^[a-z]' | awk '{print $1}' | xargs); do
+    pip3 install --upgrade $PACKAGE
+  done
+}
+
+# Compinit
+autoload -U compinit && compinit
+
+# Oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
+# Powerlevel10k
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Local zsh config
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

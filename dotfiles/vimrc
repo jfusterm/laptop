@@ -1,0 +1,40 @@
+" Basic settings
+syntax on " Syntax highlight
+filetype on
+set nocompatible " Use Vim settings, rather then Vi settings
+set encoding=utf-8 " Encoding
+set noswapfile " No swap files
+set smartindent " Automatic indentation
+set showmatch " show matching brackets (),{},[]
+set laststatus=2 " Always show the status bar
+
+" Tab settings
+set expandtab " No tabs in the file
+set tabstop=4 " All tab characters are 4 space characters
+set softtabstop=4 " Soft tab width in spaces
+set shiftwidth=4 " Number of space characters inserted for indentation
+
+" Number settings
+set number " Displays line numbers
+set numberwidth=4 " Change the width of the gutter column used for numbering
+set background=dark
+
+" Search settings
+set hlsearch   " Highlight results
+set ignorecase " Ignore casing of searches
+set incsearch  " Start showing results as you type
+set smartcase  " Be smart about case sensitivity when searching
+set history=100 " Keep 100 lines of command line history
+set ruler " Show the cursor position all the time
+set showmode " Show mode at bottom of screen
+
+autocmd FileType python setlocal expandtab shiftwidth=4 softtabstop=4
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+" Local config
+if filereadable($HOME . "/.vimrc.local")
+    source ~/.vimrc.local
+endif
+
+ab #b #!/bin/bash
+ab #p #!/usr/bin/env python3

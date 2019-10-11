@@ -1,0 +1,16 @@
+boto3
+yapf
+requests
+kubernetes
+awscli
+click
+pyyaml
+jinja2
+pylint
+ptable
+pyinstaller
+flask
+docker
+virtualenv
+setuptools
+pycrypto

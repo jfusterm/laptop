@@ -1,0 +1,37 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.encoding": "utf8",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "[python]": {
+    "editor.tabSize": 4
+  },
+  "python.autoComplete.addBrackets": true,
+  "python.jediEnabled": false,
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "yapf",
+  "python.formatting.yapfArgs": [
+    "--style={ based_on_style: pep8, column_limit: 80, indent_width: 4, coalesce_brackets: False, dedent_closing_brackets: True}"
+  ],
+  "bracket-pair-colorizer-2.forceUniqueOpeningColor": true,
+  "explorer.confirmDragAndDrop": false,
+  "window.zoomLevel": 0,
+  "markdown.extension.toc.githubCompatibility": true,
+  "workbench.iconTheme": "vscode-icons",
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.tabCompletion": "on",
+  "editor.suggestSelection": "recentlyUsed",
+  "editor.parameterHints.enabled": true,
+  "editor.wordBasedSuggestions": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "[yaml]": {
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+    "editor.formatOnPaste": false,
+  }
+}
