@@ -132,13 +132,8 @@ bootstrap_ubuntu() {
                       ecryptfs-utils \
                       ca-certificates \
                       software-properties-common \
+                      nautilus-dropbox \
                       virtualbox
-
-  # dropbox
-  echo -e "\n${CYAN}Installing ${GREEN}Dropbox${NO_COLOR}"
-  echo "deb [arch=amd64] https://linux.dropbox.com/ubuntu cosmic main" | sudo tee /etc/apt/sources.list.d/dropbox.list
-  sudo apt update
-  sudo apt install -y dropbox
 
   # brave
   echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
