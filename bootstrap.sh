@@ -3,7 +3,7 @@
 set -euo pipefail
 
 OS=$(uname)
-TMP=$(mktemp -d)
+TMP=$(mktemp -d --suffix=_bootstrap_laptop)
 REPO_DIR=$(pwd)
 
 # Colors
@@ -100,66 +100,7 @@ setup_vscode() {
   done
 }
 
-bootstrap_ubuntu() {
-  echo -e "\n${GREEN}Bootstrapping Ubuntu${NO_COLOR}"
-  sudo apt update
-  echo -e "\n${CYAN}Upgrading system${NO_COLOR}"
-  sudo apt -y upgrade
-  echo -e "\n${CYAN}Installing basic tools${NO_COLOR}"
-  sudo apt install -y apt-transport-https \
-                      zsh \
-                      git \
-                      tmux \
-                      jq \
-                      curl \
-                      vim \
-                      gnome-tweaks \
-                      htop \
-                      python3 \
-                      python3-pip \
-                      tree \
-                      xz-utils \
-                      gnupg \
-                      nmap \
-                      build-essential \
-                      file \
-                      unzip \
-                      bzip2 \
-                      zip \
-                      fzf \
-                      netcat \
-                      zsync \
-                      ecryptfs-utils \
-                      ca-certificates \
-                      software-properties-common \
-                      nautilus-dropbox \
-                      virtualbox
-
-  # brave
-  echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
-  curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
-  echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ trusty main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-trusty.list
-  sudo apt update
-  sudo apt install -y brave-browser
-
-  # docker
-  echo -e "\n${CYAN}Installing ${GREEN}Docker${NO_COLOR}"
-  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable" | sudo tee /etc/apt/sources.list.d/docker.list
-  sudo apt update
-  sudo apt install -y docker-ce docker-ce-cli containerd.io
-  sudo usermod -aG docker $(whoami)
-
-  # snap
-  echo -e "\n${CYAN}Installing basic apps with ${GREEN}Snap${NO_COLOR}"
-  sudo snap install code --classic
-  sudo snap install spotify
-  sudo snap install slack --classic
-  sudo snap install kubectl --classic
-
-  # pip
-  echo -e "\n${CYAN}Installing ${GREEN}Python${NO_COLOR} ${CYAN}packages${NO_COLOR}"
-  pip3 install -r pip/requirements.txt
+setup_tools() {
 
   # go
   echo -e "\n${CYAN}Installing ${GREEN}Go${NO_COLOR}"
@@ -169,8 +110,8 @@ bootstrap_ubuntu() {
 
   # bat
   echo -e "\n${CYAN}Installing ${GREEN}bat${NO_COLOR}"
-  curl -Lo ${TMP}/bat.deb https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb
-  sudo dpkg -i ${TMP}/bat.deb
+  curl -Lo ${TMP}/bat.tar.gz https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat-v${BAT_VERSION}-x86_64-unknown-linux-gnu.tar.gz
+  sudo tar xvzf ${TMP}/bat.tar.gz -C /usr/local/bin --strip-components=1 bat-v${BAT_VERSION}-x86_64-unknown-linux-gnu/bat
 
   # hub
   echo -e "\n${CYAN}Installing ${GREEN}hub${NO_COLOR}"
@@ -225,16 +166,175 @@ bootstrap_ubuntu() {
   git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ${TMP}/nerd-fonts
   bash ${TMP}/nerd-fonts/install.sh Hack
   fc-cache -fv
+}
 
+setup_pip() {
+  # pip
+  echo -e "\n${CYAN}Installing ${GREEN}Python${NO_COLOR} ${CYAN}packages${NO_COLOR}"
+  pip3 install --user -r pip/requirements.txt
+}
+
+bootstrap_fedora() {
+  echo -e "\n${GREEN}Bootstrapping Fedora${NO_COLOR}"
+  echo -e "\n${CYAN}Upgrading system${NO_COLOR}"
+  sudo dnf update -y
+  echo -e "\n${CYAN}Installing basic tools${NO_COLOR}"
+  sudo dnf install -y zsh \
+                      git \
+                      tmux \
+                      jq \
+                      curl \
+                      vim \
+                      gnome-tweaks \
+                      htop \
+                      python3 \
+                      python3-pip \
+                      tree \
+                      xz \
+                      gnupg \
+                      nmap \
+                      @development-tools \
+                      file \
+                      unzip \
+                      bzip2 \
+                      zip \
+                      fzf \
+                      nmap-ncat \
+                      ecryptfs-utils \
+                      ca-certificates \
+                      util-linux-user \
+                      dnf-plugins-core
+
+  # brave
+  echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
+  sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+  sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+  sudo dnf install brave-browser -y
+
+  # docker
+  echo -e "\n${CYAN}Installing ${GREEN}Docker${NO_COLOR}"
+  sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  sudo dnf install docker-ce docker-ce-cli containerd.io -y
+  sudo systemctl enable docker
+  sudo systemctl start docker
+  sudo usermod -aG docker $(whoami)
+
+  # code
+  echo -e "\n${CYAN}Installing ${GREEN}Visual Studio Code${NO_COLOR}"
+  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+  sudo dnf check-update
+  sudo dnf install code -y
+
+  # spotify
+  echo -e "\n${CYAN}Installing ${GREEN}Spotify${NO_COLOR}"
+  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  sudo flatpak install flathub com.spotify.Client -y
+
+  # slack
+  echo -e "\n${CYAN}Installing ${GREEN}Slack${NO_COLOR}"
+  curl -Lo ${TMP}/slack.rpm https://downloads.slack-edge.com/linux_releases/slack-4.1.1-0.1.fc21.x86_64.rpm
+  sudo dnf install ${TMP}/slack.rpm -y
+
+  # dropbox
+  echo -e "\n${CYAN}Installing ${GREEN}Dropbox${NO_COLOR}"
+  curl -Lo ${TMP}/dropbox.rpm https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2019.02.14-1.fedora.x86_64.rpm
+  sudo dnf install ${TMP}/dropbox.rpm -y
+
+  # dash-to-dock
+  echo -e "\n${CYAN}Installing ${GREEN}dash-to-dock${NO_COLOR}"
+  git clone https://github.com/micheleg/dash-to-dock.git ${TMP}/dash2dock
+  make -C ${TMP}/dash2dock
+  make install -C ${TMP}/dash2dock
+
+  # setup
+  setup_tools
   setup_shell
   setup_dotfiles
   setup_vscode
+  setup_pip
 
   # Restore Gnome configuration (dconf dump / > gnome/settings.dconf)
   echo -e "\n${CYAN}Restoring Gnome settings${NO_COLOR}"
-  dconf load / < gnome/settings.dconf
+  dconf load / < gnome/settings_fedora.dconf
 
-  # Cleaning
+  # clean
+  echo -e "\n${CYAN}Cleaning...${NO_COLOR}"
+  sudo rm -fr ${TMP}
+  sudo dnf autoremove -y
+  sudo dnf clean all
+}
+
+bootstrap_ubuntu() {
+  echo -e "\n${GREEN}Bootstrapping Ubuntu${NO_COLOR}"
+  sudo apt update
+  echo -e "\n${CYAN}Upgrading system${NO_COLOR}"
+  sudo apt -y upgrade
+  echo -e "\n${CYAN}Installing basic tools${NO_COLOR}"
+  sudo apt install -y apt-transport-https \
+                      zsh \
+                      git \
+                      tmux \
+                      jq \
+                      curl \
+                      vim \
+                      gnome-tweaks \
+                      htop \
+                      python3 \
+                      python3-pip \
+                      tree \
+                      xz-utils \
+                      gnupg \
+                      nmap \
+                      build-essential \
+                      file \
+                      unzip \
+                      bzip2 \
+                      zip \
+                      fzf \
+                      netcat \
+                      zsync \
+                      ecryptfs-utils \
+                      ca-certificates \
+                      software-properties-common \
+                      nautilus-dropbox \
+                      gnome-shell-extension-dashtodock \
+                      virtualbox
+
+  # brave
+  echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
+  curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+  echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ trusty main" | sudo tee /etc/apt/sources.list.d/brave-browser-release-trusty.list
+  sudo apt update
+  sudo apt install -y brave-browser
+
+  # docker
+  echo -e "\n${CYAN}Installing ${GREEN}Docker${NO_COLOR}"
+  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable" | sudo tee /etc/apt/sources.list.d/docker.list
+  sudo apt update
+  sudo apt install -y docker-ce docker-ce-cli containerd.io
+  sudo usermod -aG docker $(whoami)
+
+  # snap
+  echo -e "\n${CYAN}Installing basic apps with ${GREEN}Snap${NO_COLOR}"
+  sudo snap install code --classic
+  sudo snap install spotify
+  sudo snap install slack --classic
+  sudo snap install kubectl --classic
+
+  # setup
+  setup_tools
+  setup_shell
+  setup_dotfiles
+  setup_vscode
+  setup_pip
+
+  # Restore Gnome configuration (dconf dump / > gnome/settings.dconf)
+  echo -e "\n${CYAN}Restoring Gnome settings${NO_COLOR}"
+  dconf load / < gnome/settings_ubuntu.dconf
+
+  # clean
   echo -e "\n${CYAN}Cleaning...${NO_COLOR}"
   sudo rm -fr ${TMP}
   sudo apt -y autoremove
@@ -257,13 +357,18 @@ bootstrap_macos() {
   setup_shell
   setup_dotfiles
   setup_vscode
+  setup_pip
 }
 
 bootstrap() {
   if [ ${OS} == "Darwin" ]; then
     bootstrap_macos
   elif [ ${OS} == "Linux" ]; then
-    bootstrap_ubuntu
+    if cat /etc/os-release | grep "Ubuntu" > /dev/null; then
+      bootstrap_ubuntu
+    elif cat /etc/os-release | grep "Fedora" > /dev/null; then
+      bootstrap_fedora
+    fi
   fi
 
   echo -e "\n${GREEN}Bootstrap finished!${NO_COLOR}"

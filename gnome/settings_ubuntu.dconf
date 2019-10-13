@@ -105,7 +105,7 @@ initial-size=(890, 550)
 maximized=false
 
 [org/gnome/settings-daemon/plugins/color]
-night-light-last-coordinates=(39.461500719942407, -0.3765)
+night-light-last-coordinates=(39.452501439884813, -0.3765)
 
 [org/gnome/settings-daemon/plugins/xsettings]
 hinting='slight'
@@ -113,26 +113,31 @@ hinting='slight'
 [org/gnome/shell]
 app-picker-view=uint32 1
 enable-hot-corners=true
-enabled-extensions=@as []
+enabled-extensions=['dash-to-dock@micxgx.gmail.com']
 favorite-apps=['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'brave-browser.desktop', 'slack_slack.desktop', 'code_code.desktop', 'spotify_spotify.desktop', 'gnome-control-center.desktop']
+had-bluetooth-devices-setup=true
 
 [org/gnome/shell/extensions/dash-to-dock]
 dash-max-icon-size=30
 dock-fixed=false
 dock-position='BOTTOM'
+force-straight-corner=false
+multi-monitor=true
+show-apps-at-top=true
+show-mounts=false
 
 [org/gnome/shell/extensions/desktop-icons]
 show-home=false
 show-trash=false
 
-[org/gnome/terminal/legacy]
-theme-variant='dark'
-
 [org/gnome/software]
-check-timestamp=int64 1559722008
+check-timestamp=int64 1570980809
 
 [org/gnome/system/location]
 enabled=true
+
+[org/gnome/terminal/legacy]
+theme-variant='dark'
 
 [org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
 background-color='rgb(0,0,0)'
