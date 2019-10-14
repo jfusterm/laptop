@@ -203,7 +203,8 @@ bootstrap_fedora() {
                       ca-certificates \
                       util-linux-user \
                       dnf-plugins-core \
-                      gnome-shell-extension-appindicator
+                      gnome-shell-extension-appindicator \
+                      grubby
 
   # brave
   echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
