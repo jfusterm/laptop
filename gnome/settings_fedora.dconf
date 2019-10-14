@@ -82,13 +82,6 @@ application-id='update-manager.desktop'
 disable-microphone=false
 report-technical-problems=true
 
-[org/gnome/desktop/screensaver]
-color-shading-type='solid'
-picture-options='zoom'
-picture-uri='file:///usr/share/backgrounds/Ubuntu_gel_by_Midge_Mantissa_Sinnaeve.jpg'
-primary-color='#000000'
-secondary-color='#000000'
-
 [org/gnome/desktop/sound]
 allow-volume-above-100-percent=false
 
