@@ -203,7 +203,8 @@ bootstrap_fedora() {
                       ecryptfs-utils \
                       ca-certificates \
                       util-linux-user \
-                      dnf-plugins-core
+                      dnf-plugins-core \
+                      gnome-shell-extension-appindicator
 
   # brave
   echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
