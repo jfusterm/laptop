@@ -101,7 +101,6 @@ setup_vscode() {
 }
 
 setup_tools() {
-
   # go
   echo -e "\n${CYAN}Installing ${GREEN}Go${NO_COLOR}"
   curl -Lo ${TMP}/go.tar.gz https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz
@@ -219,6 +218,11 @@ bootstrap_fedora() {
   sudo systemctl enable docker
   sudo systemctl start docker
   sudo usermod -aG docker $(whoami)
+
+  # kubectl
+  echo -e "\n${CYAN}Installing ${GREEN}kubectl${NO_COLOR}"
+  sudo sh -c 'echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" > /etc/yum.repos.d/kubernetes.repo'
+  sudo dnf install kubectl -y
 
   # code
   echo -e "\n${CYAN}Installing ${GREEN}Visual Studio Code${NO_COLOR}"
