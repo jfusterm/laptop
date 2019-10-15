@@ -51,11 +51,11 @@ pip3upgrade() {
 # Compinit
 autoload -U compinit && compinit
 
-# Oh-my-zsh
-source $ZSH/oh-my-zsh.sh
-
 # Powerlevel10k
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # Local zsh config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# Oh-my-zsh
+source $ZSH/oh-my-zsh.sh
