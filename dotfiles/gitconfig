@@ -35,3 +35,6 @@
     a = add
     merge = merge --no-ff
     mg = --no-ff
+
+[include]
+path = ~/.gitconfig.local
