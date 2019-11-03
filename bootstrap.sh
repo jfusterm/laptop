@@ -23,6 +23,7 @@ VAGRANT_VERSION=${VAGRANT_VERSION:-2.2.5}
 VAULT_VERSION=${KIND_VERSION:-1.2.3}
 HELM_VERSION=${HELM_VERSION:-2.14.1}
 EKSCTL_VERSION=${KIND_VERSION:-0.6.0}
+AWS_IAM_AUTH_VERSION=${AWS_IAM_AUTH_VERSION:-0.4.0}
 KIND_VERSION=${KIND_VERSION:-0.5.1}
 
 
@@ -128,6 +129,11 @@ setup_tools() {
   echo -e "\n${CYAN}Installing ${GREEN}eksctl${NO_COLOR}"
   curl -Lo ${TMP}/eksctl.tar.gz https://github.com/weaveworks/eksctl/releases/download/${EKSCTL_VERSION}/eksctl_$(uname -s)_amd64.tar.gz
   sudo tar xvzf ${TMP}/eksctl.tar.gz -C /usr/local/bin/
+
+  # aws-iam-authenticator
+  echo -e "\n${CYAN}Installing ${GREEN}aws-iam-authenticator${NO_COLOR}"
+  sudo curl -o /usr/local/bin/aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v${AWS_IAM_AUTH_VERSION}/aws-iam-authenticator_${AWS_IAM_AUTH_VERSION}_linux_amd64
+  sudo chmod +x /usr/local/bin/aws-iam-authenticator
 
   # kind
   echo -e "\n${CYAN}Installing ${GREEN}kind${NO_COLOR}"
