@@ -214,6 +214,9 @@ bootstrap_fedora() {
                       podman \
                       buildah
 
+  echo -e "\n${CYAN}Removing virtualization packages${NO_COLOR}"
+  sudo dnf remove -y @virtualization
+
   # brave
   echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
   sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
