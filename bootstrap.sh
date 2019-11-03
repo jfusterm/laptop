@@ -36,6 +36,7 @@ usage() {
     -c      Configure Visual Studio Code
     -d      Configure the dotfiles
     -s      Configure the shell
+    -u      Update system, tools and repositories
 
 	EOF
 }
@@ -271,8 +272,7 @@ bootstrap_fedora() {
   dconf load / < gnome/settings_fedora.dconf
 
   # clean
-  echo -e "\n${CYAN}Cleaning...${NO_COLOR}"
-  sudo rm -fr ${TMP}
+  clean_tmp
   sudo dnf autoremove -y
   sudo dnf clean all
 }
@@ -348,8 +348,7 @@ bootstrap_ubuntu() {
   dconf load / < gnome/settings_ubuntu.dconf
 
   # clean
-  echo -e "\n${CYAN}Cleaning...${NO_COLOR}"
-  sudo rm -fr ${TMP}
+  clean_tmp
   sudo apt -y autoremove
   sudo apt clean
 }
@@ -373,6 +372,74 @@ bootstrap_macos() {
   setup_pip
 }
 
+update() {
+
+  if [ -d /usr/local/go ]; then
+    echo -e "\n${CYAN}Removing ${GREEN}/usr/local/go/${NO_COLOR}"
+    sudo rm -r /usr/local/go/
+  fi
+
+  echo -e "\n${CYAN}Updating ${GREEN}system${NO_COLOR}, ${GREEN}tools${NO_COLOR} and ${GREEN}repositories${NO_COLOR}"
+  if [ ${OS} == "Darwin" ]; then
+    if which brew > /dev/null 2>&1; then
+      echo -e "\n${CYAN}Upgrading ${GREEN}brew${NO_COLOR}"
+      brew upgrade
+    fi
+  elif [ ${OS} == "Linux" ]; then
+    if cat /etc/os-release | grep "Ubuntu" > /dev/null; then
+      echo -e "\n${CYAN}Upgrading ${GREEN}system${NO_COLOR}"
+      sudo apt update
+      sudo apt upgrade -y
+      echo -e "\n${CYAN}Upgrading ${GREEN}snap${NO_COLOR} ${CYAN}packages${NO_COLOR}"
+      sudo snap refresh -y
+      setup_tools
+    elif cat /etc/os-release | grep "Fedora" > /dev/null; then
+      echo -e "\n${CYAN}Updating ${GREEN}system${NO_COLOR}"
+      sudo dnf update -y
+      echo -e "\n${CYAN}Updating ${GREEN}flatpack${NO_COLOR} ${CYAN}packages${NO_COLOR}"
+      sudo flatpak update -y
+      setup_tools
+    fi
+  fi
+
+  if [ -d ${ZSH_CUSTOM:=~/.oh-my-zsh} ];then
+    echo -e "\n${CYAN}Updating ${GREEN}oh-my-zsh${NO_COLOR}"
+    cd ${ZSH_CUSTOM:=~/.oh-my-zsh}
+    git pull
+  fi
+
+  if [ -d ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions ];then
+    echo -e "\n${CYAN}Updating ${GREEN}zsh-completions${NO_COLOR}"
+    cd ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    git pull
+  fi
+
+  if [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions ];then
+    echo -e "\n${CYAN}Updating ${GREEN}zsh-autosuggestions${NO_COLOR}"
+    cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git pull
+  fi
+
+  if [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting ];then
+    echo -e "\n${CYAN}Updating ${GREEN}zsh-syntax-highlighting${NO_COLOR}"
+    cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git pull
+  fi
+
+  if [ -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ];then
+    echo -e "\n${CYAN}Updating ${GREEN}powerlevel10k${NO_COLOR}"
+    cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+    git pull
+  fi
+
+  clean_tmp
+}
+
+clean_tmp() {
+  echo -e "\n${CYAN}Cleaning...${NO_COLOR}"
+  sudo rm -fr ${TMP}
+}
+
 bootstrap() {
   if [ ${OS} == "Darwin" ]; then
     bootstrap_macos
@@ -393,7 +460,7 @@ main() {
     exit 0
   fi
 
-  while getopts "acds" OPTION; do
+  while getopts "acdsu" OPTION; do
     case $OPTION in
       a)
         bootstrap
@@ -409,6 +476,10 @@ main() {
         ;;
       s)
         setup_shell
+        exit 0
+        ;;
+      u)
+        update
         exit 0
         ;;
       *)
