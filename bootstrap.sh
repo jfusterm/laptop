@@ -165,7 +165,9 @@ setup_tools() {
   echo -e "\n${CYAN}Installing ${GREEN}helm${NO_COLOR}"
   curl -Lo ${TMP}/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz
   sudo tar xvzf ${TMP}/helm.tar.gz -C /usr/local/bin --strip-components=1 linux-amd64/helm
+}
 
+setup_fonts() {
   # nerd-fonts
   echo -e "\n${CYAN}Installing ${GREEN}nerd-fonts${NO_COLOR}"
   git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git ${TMP}/nerd-fonts
@@ -258,6 +260,7 @@ bootstrap_fedora() {
 
   # setup
   setup_tools
+  setup_fonts
   setup_shell
   setup_dotfiles
   setup_vscode
@@ -334,6 +337,7 @@ bootstrap_ubuntu() {
 
   # setup
   setup_tools
+  setup_fonts
   setup_shell
   setup_dotfiles
   setup_vscode
