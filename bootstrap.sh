@@ -204,21 +204,15 @@ bootstrap_fedora() {
                       util-linux-user \
                       dnf-plugins-core \
                       gnome-shell-extension-appindicator \
-                      grubby
+                      grubby \
+                      podman \
+                      buildah
 
   # brave
   echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
   sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
   sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
   sudo dnf install brave-browser -y
-
-  # docker
-  echo -e "\n${CYAN}Installing ${GREEN}Docker${NO_COLOR}"
-  sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-  sudo dnf install docker-ce docker-ce-cli containerd.io -y
-  sudo systemctl enable docker
-  sudo systemctl start docker
-  sudo usermod -aG docker $(whoami)
 
   # kubectl
   echo -e "\n${CYAN}Installing ${GREEN}kubectl${NO_COLOR}"
