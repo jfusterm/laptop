@@ -26,6 +26,7 @@ EKSCTL_VERSION=${EKSCTL_VERSION:-0.8.0}
 AWS_IAM_AUTH_VERSION=${AWS_IAM_AUTH_VERSION:-0.4.0}
 KIND_VERSION=${KIND_VERSION:-0.5.1}
 
+trap clean_tmp EXIT
 
 usage() {
 	cat <<-EOF
@@ -374,7 +375,6 @@ bootstrap_macos() {
 }
 
 update() {
-
   if [ -d /usr/local/go ]; then
     echo -e "\n${CYAN}Removing ${GREEN}/usr/local/go/${NO_COLOR}"
     sudo rm -r /usr/local/go/
