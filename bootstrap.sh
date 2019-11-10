@@ -187,7 +187,7 @@ setup_pip() {
 bootstrap_fedora() {
   echo -e "\n${GREEN}Bootstrapping Fedora${NO_COLOR}"
   echo -e "\n${CYAN}Upgrading system${NO_COLOR}"
-  sudo dnf update -y
+  sudo dnf upgrade --refresh -y
   echo -e "\n${CYAN}Installing basic tools${NO_COLOR}"
   sudo dnf install -y zsh \
                       git \
@@ -215,6 +215,7 @@ bootstrap_fedora() {
                       util-linux-user \
                       dnf-plugins-core \
                       gnome-shell-extension-appindicator \
+                      dnf-plugin-system-upgrade \
                       grubby \
                       podman \
                       buildah
@@ -396,7 +397,7 @@ update() {
       setup_tools
     elif cat /etc/os-release | grep "Fedora" > /dev/null; then
       echo -e "\n${CYAN}Updating ${GREEN}system${NO_COLOR}"
-      sudo dnf update -y
+      sudo dnf upgrade --refresh -y
       echo -e "\n${CYAN}Updating ${GREEN}flatpack${NO_COLOR} ${CYAN}packages${NO_COLOR}"
       sudo flatpak update -y
       setup_tools
