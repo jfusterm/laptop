@@ -19,6 +19,7 @@ plugins=(
   aws
   python
   ubuntu
+  dnf
   go
   salt
   vault
