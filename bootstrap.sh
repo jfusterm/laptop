@@ -275,7 +275,6 @@ bootstrap_fedora() {
   dconf load / < gnome/settings_fedora.dconf
 
   # clean
-  clean_tmp
   sudo dnf autoremove -y
   sudo dnf clean all
 }
@@ -351,7 +350,6 @@ bootstrap_ubuntu() {
   dconf load / < gnome/settings_ubuntu.dconf
 
   # clean
-  clean_tmp
   sudo apt -y autoremove
   sudo apt clean
 }
@@ -433,8 +431,6 @@ update() {
     cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
     git pull
   fi
-
-  clean_tmp
 }
 
 clean_tmp() {
