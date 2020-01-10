@@ -14,3 +14,4 @@ docker
 virtualenv
 setuptools
 pycrypto
+radon
