@@ -3,7 +3,7 @@
 set -euo pipefail
 
 OS=$(uname)
-TMP=$(mktemp -d --suffix=_bootstrap_laptop)
+TMP=$(mktemp -d --suffix=_bootstrap_laptop 2> /dev/null || mktemp -d -t _bootstrap_laptop)
 REPO_DIR=$(pwd)
 
 # Colors
