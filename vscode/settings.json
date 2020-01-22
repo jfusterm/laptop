@@ -62,5 +62,6 @@
     "!Select sequence",
     "!Split",
     "!Split sequence"
-  ]
+  ],
+  "aws.telemetry": false
 }
