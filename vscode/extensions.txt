@@ -18,3 +18,4 @@ technosophos.vscode-helm
 vscode-icons-team.vscode-icons
 vscoss.vscode-ansible
 yzhang.markdown-all-in-one
+amazonwebservices.aws-toolkit-vscode
