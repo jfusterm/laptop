@@ -63,5 +63,7 @@
     "!Split",
     "!Split sequence"
   ],
-  "aws.telemetry": false
+  "aws.telemetry": false,
+  "cfnLint.validateUsingJsonSchema": false,
+  "yaml.validate": false
 }
