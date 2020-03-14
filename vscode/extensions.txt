@@ -6,7 +6,8 @@ eamodio.gitlens
 eastman.vscode-cfn-nag
 GitHub.vscode-pull-request-github
 kddejong.vscode-cfn-lint
-Kelvin.vscode-sshfs
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
 korekontrol.saltstack
 mauve.terraform
 ms-azuretools.vscode-docker
