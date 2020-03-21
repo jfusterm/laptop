@@ -25,6 +25,7 @@ HELM_VERSION=${HELM_VERSION:-3.1.2}
 EKSCTL_VERSION=${EKSCTL_VERSION:-0.15.0}
 AWS_IAM_AUTH_VERSION=${AWS_IAM_AUTH_VERSION:-0.5.0}
 KIND_VERSION=${KIND_VERSION:-0.7.0}
+K9S_VERSION=${K9S_VERSION:-0.17.7}
 
 trap clean_tmp EXIT
 
@@ -168,6 +169,12 @@ setup_tools() {
   echo -e "\n${CYAN}Installing ${GREEN}helm${NO_COLOR}"
   curl -Lo ${TMP}/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz
   sudo tar xvzf ${TMP}/helm.tar.gz -C /usr/local/bin --strip-components=1 linux-amd64/helm
+
+  # k9s
+  echo -e "\n${CYAN}Installing ${GREEN}k9s${NO_COLOR}"
+  curl -Lo ${TMP}/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_x86_64.tar.gz
+  sudo tar xvzf ${TMP}/k9s.tar.gz -C /usr/local/bin k9s
+
 }
 
 setup_fonts() {
