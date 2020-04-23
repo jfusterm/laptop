@@ -224,6 +224,7 @@ bootstrap_fedora() {
                       gnome-shell-extension-appindicator \
                       dnf-plugin-system-upgrade \
                       grubby \
+                      wireguard-tools \
                       podman \
                       buildah
 
