@@ -262,7 +262,7 @@ bootstrap_fedora() {
 
   # dropbox
   echo -e "\n${CYAN}Installing ${GREEN}Dropbox${NO_COLOR}"
-  curl -Lo ${TMP}/dropbox.rpm https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2019.02.14-1.fedora.x86_64.rpm
+  curl -Lo ${TMP}/dropbox.rpm https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2020.03.04-1.fedora.x86_64.rpm
   sudo dnf install ${TMP}/dropbox.rpm -y
 
   # setup
