@@ -222,6 +222,7 @@ bootstrap_fedora() {
                       util-linux-user \
                       dnf-plugins-core \
                       gnome-shell-extension-appindicator \
+                      gnome-shell-extension-dash-to-dock \
                       dnf-plugin-system-upgrade \
                       grubby \
                       wireguard-tools \
@@ -263,12 +264,6 @@ bootstrap_fedora() {
   echo -e "\n${CYAN}Installing ${GREEN}Dropbox${NO_COLOR}"
   curl -Lo ${TMP}/dropbox.rpm https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2019.02.14-1.fedora.x86_64.rpm
   sudo dnf install ${TMP}/dropbox.rpm -y
-
-  # dash-to-dock
-  echo -e "\n${CYAN}Installing ${GREEN}dash-to-dock${NO_COLOR}"
-  git clone https://github.com/micheleg/dash-to-dock.git ${TMP}/dash2dock
-  make -C ${TMP}/dash2dock
-  make install -C ${TMP}/dash2dock
 
   # setup
   setup_tools
