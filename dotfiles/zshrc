@@ -20,7 +20,7 @@ plugins=(
   python
   ubuntu
   dnf
-  go
+  golang
   salt
   vault
   pip
