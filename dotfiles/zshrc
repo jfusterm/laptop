@@ -34,9 +34,6 @@ plugins=(
 
 # Alias
 alias k="kubectl"
-alias kgp="kubectl get pods"
-alias kaf="kubectl apply -f"
-alias kdf="kubectl delete -f"
 alias g="git"
 
 # Load Hub
