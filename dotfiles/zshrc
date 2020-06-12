@@ -16,6 +16,7 @@ plugins=(
   terraform
   tmux
   ansible
+  gcloud
   aws
   python
   ubuntu
