@@ -35,6 +35,7 @@ plugins=(
 # Alias
 alias k="kubectl"
 alias g="git"
+alias public_ip="curl ifconfig.co"
 
 # Load Hub
 eval "$(hub alias -s)"
