@@ -36,6 +36,8 @@ plugins=(
 # Alias
 alias k="kubectl"
 alias g="git"
+alias kx="kubectx"
+alias kn="kubens"
 alias public_ip="curl ifconfig.co"
 
 # Load Hub
