@@ -36,5 +36,8 @@
     merge = merge --no-ff
     mg = --no-ff
 
+[pull]
+	rebase = false
+
 [include]
 path = ~/.gitconfig.local
