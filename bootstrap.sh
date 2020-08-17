@@ -228,7 +228,8 @@ bootstrap_fedora() {
                       grubby \
                       wireguard-tools \
                       podman \
-                      buildah
+                      buildah \
+                      kitty
 
   echo -e "\n${CYAN}Removing virtualization packages${NO_COLOR}"
   sudo dnf remove -y @virtualization
@@ -317,7 +318,8 @@ bootstrap_ubuntu() {
                       software-properties-common \
                       nautilus-dropbox \
                       gnome-shell-extension-dashtodock \
-                      virtualbox
+                      virtualbox \
+                      kitty
 
   # brave
   echo -e "\n${CYAN}Installing ${GREEN}Brave${NO_COLOR}"
