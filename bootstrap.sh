@@ -79,12 +79,13 @@ setup_shell() {
 }
 
 setup_dotfiles() {
-  echo -e "\n${CYAN}Setting ${GREEN}dotfiles ${CYAN}( zshrc | vimrc | gitconfig | p10k.zsh )${NO_COLOR}"
+  echo -e "\n${CYAN}Setting ${GREEN}dotfiles ${CYAN}( zshrc | vimrc | gitconfig | p10k.zsh | kitty )${NO_COLOR}"
   mv ~/.zshrc ~/.zshrc.orig
   ln -f -s ${REPO_DIR}/dotfiles/zshrc ~/.zshrc
   ln -f -s ${REPO_DIR}/dotfiles/vimrc ~/.vimrc
   ln -f -s ${REPO_DIR}/dotfiles/gitconfig ~/.gitconfig
   ln -f -s ${REPO_DIR}/p10k/p10k.zsh ~/.p10k.zsh
+  ln -f -s ${REPO_DIR}/dotfiles/kitty.conf ~/.config/kitty/kitty.conf
 }
 
 setup_vscode() {
