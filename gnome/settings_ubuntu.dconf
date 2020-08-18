@@ -114,7 +114,7 @@ hinting='slight'
 app-picker-view=uint32 1
 enable-hot-corners=true
 enabled-extensions=['dash-to-dock@micxgx.gmail.com']
-favorite-apps=['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'brave-browser.desktop', 'slack_slack.desktop', 'code_code.desktop', 'spotify_spotify.desktop', 'gnome-control-center.desktop']
+favorite-apps=['org.gnome.Nautilus.desktop', 'kitty.desktop', 'brave-browser.desktop', 'slack_slack.desktop', 'code_code.desktop', 'spotify_spotify.desktop', 'gnome-control-center.desktop']
 had-bluetooth-devices-setup=true
 
 [org/gnome/shell/extensions/dash-to-dock]
