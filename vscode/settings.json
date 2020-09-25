@@ -11,6 +11,7 @@
   },
   "python.autoComplete.addBrackets": true,
   "python.jediEnabled": false,
+  "python.languageServer": "Microsoft",
   "python.linting.pylintEnabled": true,
   "python.formatting.provider": "yapf",
   "python.formatting.yapfArgs": [
