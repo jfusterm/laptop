@@ -248,6 +248,12 @@ bootstrap_fedora() {
   sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
   sudo dnf install brave-browser -y
 
+  # docker
+  echo -e "\n${CYAN}Installing ${GREEN}docker${NO_COLOR}"
+  sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  sudo dnf install docker-ce docker-ce-cli containerd.io -y
+  sudo usermod -aG docker ${USER}
+
   # kubectl
   echo -e "\n${CYAN}Installing ${GREEN}kubectl${NO_COLOR}"
   sudo sh -c 'echo -e "[kubernetes]\nname=Kubernetes\nbaseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg" > /etc/yum.repos.d/kubernetes.repo'
