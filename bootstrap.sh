@@ -170,6 +170,11 @@ setup_tools() {
   curl -Lo ${TMP}/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_x86_64.tar.gz
   sudo tar xvzf ${TMP}/k9s.tar.gz -C /usr/local/bin k9s
 
+  # k3d
+  echo -e "\n${CYAN}Installing ${GREEN}k3d${NO_COLOR}"
+  curl -Lo k3d https://github.com/rancher/k3d/releases/download/v${K3D_VERSION}/k3d-linux-amd64
+  sudo chmod +x k3d
+  sudo mv k3d /usr/local/bin
 }
 
 setup_fonts() {
