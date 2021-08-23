@@ -225,6 +225,7 @@ bootstrap_fedora() {
                       dnf-plugins-core \
                       gnome-shell-extension-appindicator \
                       gnome-shell-extension-dash-to-dock \
+                      gnome-extensions-app \
                       dnf-plugin-system-upgrade \
                       grubby \
                       wireguard-tools \
@@ -319,6 +320,7 @@ bootstrap_ubuntu() {
                       software-properties-common \
                       nautilus-dropbox \
                       gnome-shell-extension-dashtodock \
+                      gnome-extensions-app \
                       virtualbox \
                       kitty
 
