@@ -140,12 +140,6 @@ setup_tools() {
   sudo chmod +x ${TMP}/aws-iam-authenticator
   sudo mv ${TMP}/aws-iam-authenticator /usr/local/bin
 
-  # kind
-  echo -e "\n${CYAN}Installing ${GREEN}kind${NO_COLOR}"
-  mkdir ${TMP}/go
-  GOPATH=${TMP}/go GO111MODULE="on" go get sigs.k8s.io/kind@v${KIND_VERSION}
-  sudo mv ${TMP}/go/bin/kind /usr/local/bin
-
   # vagrant
   echo -e "\n${CYAN}Installing ${GREEN}vagrant${NO_COLOR}"
   curl -Lo ${TMP}/vagrant.zip https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_linux_amd64.zip
