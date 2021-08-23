@@ -273,7 +273,7 @@ bootstrap_fedora() {
 
   # slack
   echo -e "\n${CYAN}Installing ${GREEN}Slack${NO_COLOR}"
-  curl -Lo ${TMP}/slack.rpm https://downloads.slack-edge.com/linux_releases/slack-4.4.2-0.1.fc21.x86_64.rpm
+  curl -Lo ${TMP}/slack.rpm https://downloads.slack-edge.com/releases/linux/4.19.2/prod/x64/slack-4.19.2-0.1.fc21.x86_64.rpm
   sudo dnf install ${TMP}/slack.rpm -y
 
   # dropbox
