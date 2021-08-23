@@ -26,6 +26,7 @@ EKSCTL_VERSION=${EKSCTL_VERSION:-0.62.0}
 AWS_IAM_AUTH_VERSION=${AWS_IAM_AUTH_VERSION:-0.5.3}
 K3D_VERSION=${K3D_VERSION:-4.4.7}
 K9S_VERSION=${K9S_VERSION:-0.24.15}
+SKAFFOLD_VERSION=${SKAFFOLD_VERSION:-1.30.0}
 
 trap clean_tmp EXIT
 
@@ -175,6 +176,12 @@ setup_tools() {
   curl -Lo k3d https://github.com/rancher/k3d/releases/download/v${K3D_VERSION}/k3d-linux-amd64
   sudo chmod +x k3d
   sudo mv k3d /usr/local/bin
+
+  # skaffold
+  echo -e "\n${CYAN}Installing ${GREEN}skaffold${NO_COLOR}"
+  curl -Lo skaffold https://github.com/GoogleContainerTools/skaffold/releases/download/v${SKAFFOLD_VERSION}/skaffold-linux-amd64
+  sudo chmod +x skaffold
+  sudo mv skaffold /usr/local/bin
 }
 
 setup_fonts() {
