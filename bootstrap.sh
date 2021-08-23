@@ -266,10 +266,17 @@ bootstrap_fedora() {
   sudo dnf check-update
   sudo dnf install code -y
 
+  # flathub
+  echo -e "\n${CYAN}Setting ${GREEN}Flathub${NO_COLOR}"
+  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
   # spotify
   echo -e "\n${CYAN}Installing ${GREEN}Spotify${NO_COLOR}"
-  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   sudo flatpak install flathub com.spotify.Client -y
+
+  # postman
+  echo -e "\n${CYAN}Installing ${GREEN}Postman${NO_COLOR}"
+  sudo flatpak install flathub com.getpostman.Postman -y
 
   # slack
   echo -e "\n${CYAN}Installing ${GREEN}Slack${NO_COLOR}"
